@@ -1,0 +1,143 @@
+Snake Game
+Project Report
+Submitted by
+Geethai Prasanth
+Roll No: 312323205063
+BACHELOR OF TECHNOLOGY
+DEPARTMENT OF INFORMATION TECHNOLOGY
+St. Joseph’s College of Engineering
+(An Autonomous Institution)
+St. Joseph’s Group of Institutions
+OMR, CHENNAI-119
+
+Abstract:
+The Snake Game is a simple and interactive arcade game in which the player controls a snake that grows longer each time it eats food, with the goal being to avoid hitting the walls or the snake’s own body. This project is developed using HTML, CSS, and JavaScript, which provides a fun and dynamic experience. The player can control the snake using the arrow keys and tries to eat the food that randomly appears on the screen while avoiding obstacles. The game keeps track of the player’s score and ends when the snake collides with the wall or itself.
+
+Introduction:
+The Snake Game is one of the most popular classic arcade games that has been enjoyed for decades. It has a simple yet addictive gameplay mechanic where the player controls a snake and attempts to collect food while avoiding walls and the snake’s own body. The game was first popularized in the 1970s and has been featured on various platforms, from early mobile phones to modern web browsers.
+
+In this project, we have recreated the snake game using HTML, CSS, and JavaScript. The game provides a user-friendly interface and simple controls while keeping the core mechanics intact. The snake can move in four directions (up, down, left, and right), and the player’s score increases every time the snake eats food. The game ends when the snake collides with the walls or itself.
+
+Objective:
+The main objective of the Snake Game project is to create an interactive game that:
+
+Allows users to control a snake using arrow keys.
+Generates food for the snake to eat and grow.
+Increases the score every time the snake eats food.
+Ends the game when the snake collides with the walls or itself.
+Provides a simple and engaging interface for users to enjoy the game.
+Scope of the Project:
+The scope of the project includes:
+
+Game Mechanics: The snake moves around the game screen, eats food, and grows in size. The player controls the snake using arrow keys.
+Collision Detection: The game detects when the snake collides with the walls or itself and ends the game in such cases.
+Score System: The game displays the current score based on how much food the snake eats.
+Responsive Design: The game works on various devices with a responsive layout.
+Future improvements may include adding more levels, sound effects, and animations.
+
+Technologies Used:
+The project uses the following technologies:
+
+
+JavaScript: For implementing the game’s logic, such as movement, collision detection, food generation, and score tracking.
+Project Description:
+The Snake Game consists of the following key components:
+
+1. Game Area:
+The game area is a grid where the snake moves and the food is placed.
+The snake is represented by a series of square blocks, and the food is a single block that appears randomly.
+2. Game Controls:
+The snake can be controlled using the arrow keys (up, down, left, right).
+3. Game Logic:
+The snake moves in the direction of the last arrow key pressed.
+The snake grows longer each time it eats food.
+The game ends when the snake collides with the walls or its own body.
+4. Score Display:
+The score is displayed at the top of the game screen and updates each time the snake eats food.
+Source Code:
+Here is the source code for the Snake Game:
+
+
+JavaScript (game.js):
+javascript
+Copy code
+const canvas = document.getElementById("gameCanvas");
+const ctx = canvas.getContext("2d");
+const box = 20; // Size of each block (snake and food)
+let score = 0;
+let snake = [{ x: 9 * box, y: 9 * box }];
+let food = { x: Math.floor(Math.random() * 19 + 1) * box, y: Math.floor(Math.random() * 19 + 1) * box };
+let direction;
+let game;
+
+document.addEventListener("keydown", directionControl);
+
+function directionControl(event) {
+    if (event.keyCode == 37 && direction !== "RIGHT") {
+        direction = "LEFT";
+    } else if (event.keyCode == 38 && direction !== "DOWN") {
+        direction = "UP";
+    } else if (event.keyCode == 39 && direction !== "LEFT") {
+        direction = "RIGHT";
+    } else if (event.keyCode == 40 && direction !== "UP") {
+        direction = "DOWN";
+    }
+}
+
+function drawGame() {
+    ctx.fillStyle = "#222";
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+    for (let i = 0; i < snake.length; i++) {
+        ctx.fillStyle = (i === 0) ? "#00FF00" : "#00B300";
+        ctx.fillRect(snake[i].x, snake[i].y, box, box);
+    }
+
+    ctx.fillStyle = "#FF0000";
+    ctx.fillRect(food.x, food.y, box, box);
+
+    let snakeX = snake[0].x;
+    let snakeY = snake[0].y;
+
+    if (direction === "LEFT") snakeX -= box;
+    if (direction === "UP") snakeY -= box;
+    if (direction === "RIGHT") snakeX += box;
+    if (direction === "DOWN") snakeY += box;
+
+    if (snakeX === food.x && snakeY === food.y) {
+        food = {
+            x: Math.floor(Math.random() * 19 + 1) * box,
+            y: Math.floor(Math.random() * 19 + 1) * box
+        };
+        score++;
+        document.getElementById("score").innerText = "Score: " + score;
+    } else {
+        snake.pop();
+    }
+
+    const newHead = { x: snakeX, y: snakeY };
+    snake.unshift(newHead);
+
+    if (snakeX < 0 || snakeY < 0 || snakeX >= canvas.width || snakeY >= canvas.height) {
+        clearInterval(game);
+        alert("Game Over! Your score is " + score);
+    }
+hdu
+    for (let i = 1; i < snake.length; i++) {
+        if (snake[i].x === snakeX && snake[i].y === snakeY) {
+            clearInterval(game);
+            alert("Game Over! Your score is " + score);
+        }
+    }
+}
+
+game = setInterval(drawGame, 100);
+Game Mechanics:
+Snake Movement: The snake moves based on the last key pressed (up, down, left, or right).
+Food Consumption: The snake eats food that randomly appears on the screen, which causes it to grow and increases the score.
+Collision Detection: The game ends when the snake collides with the wall or with its own body.
+Score: The current score is displayed and updated every time the snake eats food.
+Conclusion:
+The Snake Game is a fun and interactive web-based game developed using HTML, CSS, and JavaScript. The game showcases basic game development techniques such as collision detection, real-time updates, and score tracking. It provides an excellent platform for learning and understanding game mechanics and programming concepts in web development.
+
+Future enhancements can include adding levels, sound effects, and additional
